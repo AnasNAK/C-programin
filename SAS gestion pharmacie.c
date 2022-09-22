@@ -17,12 +17,12 @@ typedef struct{
       int taille = 0;
       int tailletmp = 0;
       int fermer=0;
-       //fonction d'ajouter plusieurs produits
-
+//fonction calculer et souvgarder TTC 
 float TTC(float a)
 {
     return a + a* 0.15;
 }
+//fonction d'ajouter plusieurs produits 
 void ajouter_produit(produit *medicament)
 {
 
@@ -38,6 +38,7 @@ void ajouter_produit(produit *medicament)
     printf("===l'ajoute est effectuee===\n",taille+1);
     taille++;
 }
+//fontion d ajiuter plusieurs produits
 void ajouter_plusiuers_produits(produit*medicament,int nbr){
     int i ;
     int r = taille;
@@ -56,7 +57,7 @@ void ajouter_plusiuers_produits(produit*medicament,int nbr){
             printf(" Code de produit :%d\n",medicament[i].code);
         }
     }
-
+//fonction d affichage les quantite recherchez
     void la_liste_des_medicaments1(produit *medicament,int conteur){
         for(int i = 0; i < conteur; i++){
             printf("\t========information de produit========\n ");
@@ -116,7 +117,7 @@ void ajouter_plusiuers_produits(produit*medicament,int nbr){
 //Fonction pour rechercher les produits par quantite
 void recherche_par_quantite(produit *medicament){
 	int conteur = 0;
-    produit existe_produit[taille];
+        produit existe_produit[taille];
 	int i,quantite;
 	printf("Donner la quantite => ");
 	scanf("%d",&quantite);
@@ -128,8 +129,8 @@ void recherche_par_quantite(produit *medicament){
 	}
 	if(conteur == 0){
 		printf("Aucun produit existe de cette quantite\n");
-		return;
-	}
+		return; }
+	          
 	la_liste_des_medicaments1(existe_produit,conteur);
 }
 
@@ -174,6 +175,7 @@ void sous_menu_de_recherche(produit * medicament){
 			break;
 	}
 }
+//fonction trouver le code et souvgarder
 int trouver_par_code(produit * medicament,int code){
 	int i = 0;
 	for(i = 0; i < taille ; i++){
@@ -182,7 +184,7 @@ int trouver_par_code(produit * medicament,int code){
 	}
 	return -1;
 	}
-
+//fonction suprimer un produit 
 void sup(produit*medicament,int code){
     int i;
 
@@ -194,20 +196,16 @@ void sup(produit*medicament,int code){
             {
                  medicament[i] = medicament[i+1];
             }
-
     }
     taille--;
-
-
 }
+//fonction pour souvgarder et acheter les produits 
 void achat (produit *medicament,int code,int quantite,produit *tmp){
 
    int existe = trouver_par_code(medicament,code);
 
 if(existe != -1)
 {
-
-
     if (medicament[existe].quantite-quantite==0)
     {
         tmp[tailletmp]=medicament[existe];
@@ -218,10 +216,10 @@ if(existe != -1)
     else if (medicament[existe].quantite-quantite>0)
     {
         tmp[tailletmp].code = medicament[existe].code;
-        tmp[tailletmp].prix = medicament[existe].prix;//5
+        tmp[tailletmp].prix = medicament[existe].prix;
         strcpy(tmp[tailletmp].nom,medicament[existe].nom);
-        tmp[tailletmp].quantite = quantite;//2
-        medicament[existe].quantite = medicament[existe].quantite -quantite;//5-3=2
+        tmp[tailletmp].quantite = quantite;
+        medicament[existe].quantite = medicament[existe].quantite -quantite;
         tailletmp++;
     }
 
@@ -231,27 +229,30 @@ if(existe != -1)
 }else
     printf("cette code est non valide");
 }
+//fonction etat < 3
 void etat (produit* medicament){
     int i;
     printf("Les produits dont la quantite est inferieur de 3 \n");
     for (i=0;i<taille;i++){
         if (medicament[i].quantite<3)
-            printf("le produit :[%d] \n le nom :%s \n le prix:%.2fDH \n prix TTC:%.2fDH \nla quantite :%d \n",medicament[i].code,medicament[i].nom,medicament[i].prix,medicament[i].prix+(medicament[i].prix*0.15),medicament[i].quantite);
+            printf("le code deproduit :%d \n le nom :%s \n le prix:%.2fDH \n prix TTC:%.2fDH \nla quantite :%d \n",medicament[i].code,medicament[i].nom,medicament[i].prix,medicament[i].prix+(medicament[i].prix*0.15),medicament[i].quantite);
     }
 }
+//fonction d ajoute produits n est pas dans le stock 
 void ajoutp(produit *medicament,produit pr)
 {
     medicament[taille] = pr;
     taille++;
 }
+//fonction pour allimenter le stock 
 void allem (produit *medicament){
     int quantite,code;
     produit pr;
-printf("entrer code :");
-scanf("%d",&code);
-printf("entrer quantite :");
-scanf("%d",&quantite);
-   int existe= trouver_par_code(medicament,code);
+    printf("entrer code :");
+    scanf("%d",&code);
+    printf("entrer quantite :");
+    scanf("%d",&quantite);
+    int existe= trouver_par_code(medicament,code);
 
 if (existe==-1)
 {
@@ -270,7 +271,7 @@ else{
 }
 
 }
-
+//foction triee T tmp 
 void tri(produit *tmp)
 {
     int i,j;
@@ -285,6 +286,7 @@ void tri(produit *tmp)
                 }
 }
 }
+//fonction aficher un produit 
 void affP1(produit pr)
 {
     printf("\t========information de produit========\n ");
@@ -293,7 +295,7 @@ void affP1(produit pr)
             printf(" La quantite:%d\n",pr.quantite);
             printf(" Code de produit:%d\n",pr.code);
 }
-
+//fonction pour retourner le total
 float somme(produit *tmp)
 {
     int i;
@@ -304,7 +306,7 @@ float somme(produit *tmp)
     }
     return s;
 }
-
+//fonction pour retourner total Quantite 
 int sommeQ(produit *tmp)
 {
     int i;
@@ -315,6 +317,7 @@ int sommeQ(produit *tmp)
     }
     return s;
 }
+//fonction pour aficher les statistique 
 void statistique(produit *tmp,date d)
  {
     float sp,moyen;
@@ -371,16 +374,16 @@ void statistique(produit *tmp,date d)
     int main(){
         time_t timestamp  = time(NULL);
 	    struct tm * timeInfos = localtime(&timestamp );
-	    produit tmp[20];
+	produit medeicament[100];    
+	produit tmp[20];
+	date d;
         int s=1,i;
         int nbr,code;
         int choix ;
         int conteur = 0;
-        date d;
-        produit medicament[100];
 
         while(fermer==0){
-        //le menu
+       //le menu
       printf("\t\t\t\t>>>>>>>>>>>>>>>>>>>>MENU PRINCIPALE<<<<<<<<<<<<<<<<<<<<\n\n");
       printf(" 1:Ajouter un nouveau produit.\n");
       printf(" 2:Ajouter plusieurs un nouveaux produits.\n");
@@ -488,10 +491,7 @@ void statistique(produit *tmp,date d)
     }
   }
   return 0;
- }
-
-
-
+}
 
 
 
